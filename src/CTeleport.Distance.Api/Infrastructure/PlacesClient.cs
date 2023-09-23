@@ -18,7 +18,18 @@ namespace CTeleport.Distance.Api
             };
         }
 
-        public async Task<Airport> GetAirport(IATA code) => await client.GetFromJsonAsync<Airport>($"airports/{code}");
+        public async Task<Airport> GetAirport(IATA code) 
+        {
+            try
+            {
+                return await client.GetFromJsonAsync<Airport>($"airports/{code}");
+            }
+            catch
+            {
+                // logging or any other handlind could be here
+                return null;
+            }
+        } 
 
         public void Dispose() => client.Dispose();
     }
